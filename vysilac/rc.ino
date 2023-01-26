@@ -1,4 +1,4 @@
-  //vysilac
+//vysilac
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_BME280.h>
@@ -21,15 +21,17 @@ Serial.begin(9600);
 void loop() {
 
 
-  float temperature = bme.readTemperature();
-  float hummidity = bme.readHumidity();
-  float pressure = bme.readPressure() / 100;
-  vysilac.send(temperature, 16);
+  float temperature = bme.readTemperature() * 10 ;
+  float hummidity = bme.readHumidity() * 10;
+  float pressure = bme.readPressure();
+  vysilac.send(temperature, 24);
   vysilac.send(hummidity, 32);
   vysilac.send(pressure, 32);
   Serial.println(temperature);
   Serial.println(hummidity);
   Serial.println(pressure);
+  
+
   delay(1000);
 
 
