@@ -23,10 +23,10 @@ void loop() {
 
   float temperature = bme.readTemperature() * 10 ;
   float hummidity = bme.readHumidity() * 10;
-  float pressure = bme.readPressure();
+  float pressure = bme.readPressure() / 10;
   vysilac.send(temperature, 24);
   vysilac.send(hummidity, 32);
-  vysilac.send(pressure, 32);
+  vysilac.send(pressure, 16);
   Serial.println(temperature);
   Serial.println(hummidity);
   Serial.println(pressure);
