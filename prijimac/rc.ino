@@ -1,26 +1,39 @@
+//vysilac
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_BME280.h>
+#include <Adafruit_Sensor.h>
 #include <RCSwitch.h>
+#include <ArduinoJson.h>
 
-RCSwitch prijimac = RCSwitch();
+RCSwitch vysilac = RCSwitch();
+
+#define BME280_ADRESA (0x76)
+Adafruit_BME280 bme;
 
 void setup() {
-
-  Serial.begin(9600);
-  prijimac.setProtocol(2);
-  prijimac.enableReceive(0);
+bme.begin(BME280_ADRESA);
+vysilac.enableTransmit(10);
+vysilac.setProtocol(2);
+Serial.begin(9600);
 }
 
 void loop() {
-  if (prijimac.available()) {
-    int velikost = prijimac.getReceivedValue();
-    if (velikost == 0) {
 
-    } else {
-    delay(500);
-      Serial.print(prijimac.getReceivedValue()) / 10;
-      Serial.print(" ");
-      Serial.print(prijimac.getReceivedBitlength());
-      Serial.println();
-      prijimac.resetAvailable();
-  }
-}
+
+  float temperature = bme.readTemperature() * 10 ;
+  float hummidity = bme.readHumidity() * 10;
+  float pressure = bme.readPressure() / 10;
+  vysilac.send(temperature, 24);
+  vysilac.send(hummidity, 32);
+  vysilac.send(pressure, 16);
+  Serial.println(temperature);
+  Serial.println(hummidity);
+  Serial.println(pressure);
+  
+
+  delay(1000);
+
+
+
 }
