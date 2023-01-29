@@ -1,4 +1,4 @@
-//prijimac
+//prijimac 
 #include <RCSwitch.h>
 
 RCSwitch prijimac = RCSwitch();
