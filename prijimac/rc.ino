@@ -16,7 +16,6 @@ void loop() {
     if (velikost == 0) {
 
     } else {
-    delay(500);
       Serial.print(prijimac.getReceivedValue()) / 10;
       Serial.print(" ");
       Serial.print(prijimac.getReceivedBitlength());
